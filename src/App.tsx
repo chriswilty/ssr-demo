@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 import CardLoading from './CardLoading.tsx';
+import { demoMenuItems, NavMenu } from './nav-menu';
 import SearchBox from './SearchBox';
 import SplitPanel from './SplitPanel.tsx';
 
@@ -55,6 +56,7 @@ const App = () => (
 	<>
 		<header css={headerCss}>
 			<Title />
+			<NavMenu menuItems={demoMenuItems} />
 			<SearchBox />
 		</header>
 		<main css={mainCss}>
