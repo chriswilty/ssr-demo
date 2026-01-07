@@ -1,0 +1,46 @@
+:root {
+	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+
+	--backgroundColorMain: #101010;
+	--backgroundColorSecondary: #303030;
+	--colorMain: rgba(255, 255, 255, 0.87);
+	color-scheme: light dark;
+	color: var(--colorMain);
+	background-color: var(--backgroundColorMain);
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	margin: 0;
+}
+
+body * {
+	box-sizing: border-box;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	width: 100vw;
+	max-width: 1200px;
+	height: 100vh;
+	overflow: hidden;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--backgroundColorMain: #efefef;
+		--backgroundColorSecondary: #dfdfdf;
+		--colorMain: rgba(0, 0, 0, 0.87);
+	}
+}
