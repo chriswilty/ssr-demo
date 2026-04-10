@@ -77,11 +77,12 @@ type LinkProps = {
 	label: string;
 	href: string;
 	focusRef?: RefObject<HTMLAnchorElement | null>;
+	onHover: () => void;
 	onKeyDown: (event: KeyboardEvent) => void;
 	onPress: () => void;
 };
 
-const Link: FC<LinkProps> = ({ label, href, focusRef, onKeyDown, onPress }) => {
+const Link: FC<LinkProps> = ({ label, href, focusRef, onHover, onKeyDown, onPress }) => {
 	const isFocused = !!focusRef;
 
 	const handleLinkPress = () => {
@@ -97,6 +98,7 @@ const Link: FC<LinkProps> = ({ label, href, focusRef, onKeyDown, onPress }) => {
 			tabIndex={isFocused ? undefined : -1}
 			onClick={handleLinkPress}
 			onKeyDown={onKeyDown}
+			onMouseOver={onHover}
 		>
 			{label}
 		</StyledAnchor>
@@ -122,7 +124,7 @@ type MenuProps = {
 	orientation: 'horizontal' | 'vertical';
 	onKeyDown?: (event: KeyboardEvent) => void;
 	onLinkPress: () => void;
-	onMenuPress?: (label: string) => void;
+	onMenuActive?: (label: string) => void;
 };
 
 const Menu: FC<MenuProps> = ({
@@ -136,7 +138,7 @@ const Menu: FC<MenuProps> = ({
 	orientation,
 	onKeyDown,
 	onLinkPress,
-	onMenuPress,
+	onMenuActive,
 }) => {
 	const focusedChildRef = useRef<HTMLAnchorElement>(null);
 	const [previouslyFocused, setPreviouslyFocused] = useState(!!itemRef);
@@ -177,13 +179,18 @@ const Menu: FC<MenuProps> = ({
 		onLinkPress();
 	};
 
-	const handleMenuItemPressed = (label: string) => {
+	const handleMenuItemActive = (label: string) => {
 		setFocusedItem(label);
 	};
 
 	const handleMenuClick = () => {
 		setExpanded((isExpanded) => !isExpanded);
-		onMenuPress?.(label);
+		onMenuActive?.(label);
+	};
+
+	const handleMenuHover = () => {
+		setExpanded(true);
+		onMenuActive?.(label);
 	};
 
 	const focusPreviousMenuItem = () => {
@@ -248,6 +255,7 @@ const Menu: FC<MenuProps> = ({
 					tabIndex={isFocused && !expanded ? undefined : -1}
 					onClick={handleMenuClick}
 					onKeyDown={handleKeyDown}
+					onMouseOver={handleMenuHover}
 				>
 					{label}
 					{
@@ -274,6 +282,7 @@ const Menu: FC<MenuProps> = ({
 						{'href' in item ? (
 							<Link
 								focusRef={item.label === focusedItem ? focusedChildRef : undefined}
+								onHover={() => handleMenuItemActive(item.label)}
 								onKeyDown={handleKeyDown}
 								onPress={handleLinkPressed}
 								{...item}
@@ -289,7 +298,7 @@ const Menu: FC<MenuProps> = ({
 								orientation="vertical"
 								onKeyDown={handleKeyDown}
 								onLinkPress={handleLinkPressed}
-								onMenuPress={handleMenuItemPressed}
+								onMenuActive={handleMenuItemActive}
 							/>
 						)}
 					</StyledItem>
