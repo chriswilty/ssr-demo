@@ -236,6 +236,10 @@ const Menu: FC<MenuProps> = ({
 				(event.key === 'ArrowRight' && orientation === 'horizontal'))
 		) {
 			focusNextMenuItem();
+		} else if (expanded && event.key === 'Home') {
+			setFocusedItem(items[0].label);
+		} else if (expanded && event.key === 'End') {
+			setFocusedItem(items.at(-1)!.label);
 		} else {
 			// Allow to propagate if event not consumed by this menu
 			onKeyDown?.(event);
