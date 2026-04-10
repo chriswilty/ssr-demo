@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import {
 	type FC,
 	type KeyboardEvent,
@@ -9,6 +10,42 @@ import {
 	useRef,
 	useState,
 } from 'react';
+
+const OuterContainer = styled.div(({ dragging }: { dragging: boolean }) => ({
+	display: 'flex',
+	flexDirection: 'column' as const,
+	alignItems: 'stretch',
+	justifyContent: 'stretch',
+	height: '100%',
+	overflow: 'hidden',
+	paddingInline: '0.125rem',
+	cursor: dragging ? 'row-resize' : 'default',
+}));
+
+const ContainerOne = styled.div(({ height }: { height: number }) => ({
+	display: 'flex',
+	width: '100%',
+	height,
+	paddingBottom: '0.5rem',
+	overflow: 'hidden',
+}));
+
+const ContainerTwo = styled.div({
+	display: 'flex',
+	width: '100%',
+	paddingTop: '0.5rem',
+	flex: 1,
+});
+
+const DragButton = styled.button({
+	height: '0.5rem',
+	border: 'none',
+	outlineOffset: '-0.125rem',
+	padding: 0,
+	color: 'transparent',
+	fontSize: 0,
+	cursor: 'row-resize',
+});
 
 type SplitPanelProps = {
 	one: ReactNode;
@@ -65,55 +102,13 @@ const SplitPanel: FC<SplitPanelProps> = ({ one, two }) => {
 	}, [dragging]);
 
 	return (
-		<div
-			ref={containerRef}
-			css={{
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'stretch',
-				justifyContent: 'stretch',
-				height: '100%',
-				overflow: 'hidden',
-				cursor: dragging ? 'row-resize' : 'default',
-			}}
-		>
-			<div
-				css={{
-					display: 'flex',
-					width: '100%',
-					height: position,
-					paddingBottom: '0.5rem',
-					overflow: 'hidden',
-				}}
-			>
-				{one}
-			</div>
-			<button
-				type="button"
-				onMouseDown={onMouseDown}
-				onKeyDown={onKeyDown}
-				css={{
-					height: '0.5rem',
-					border: 'none',
-					color: 'transparent',
-					fontSize: 0,
-					cursor: 'row-resize',
-				}}
-			>
+		<OuterContainer ref={containerRef} dragging={dragging}>
+			<ContainerOne height={position}>{one}</ContainerOne>
+			<DragButton type="button" onMouseDown={onMouseDown} onKeyDown={onKeyDown}>
 				drag or arrow up/down to resize panels
-			</button>
-			<div
-				css={{
-					display: 'flex',
-					width: '100%',
-					paddingTop: '0.5rem',
-					flex: 1,
-					overflow: 'hidden',
-				}}
-			>
-				{two}
-			</div>
-		</div>
+			</DragButton>
+			<ContainerTwo>{two}</ContainerTwo>
+		</OuterContainer>
 	);
 };
 

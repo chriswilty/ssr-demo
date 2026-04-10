@@ -57,7 +57,7 @@ const App = () => (
 		<header css={headerCss}>
 			<Title />
 			<NavMenu menuItems={demoMenuItems} />
-			<SearchBox />
+			<SearchBox label="Search site" onSubmit={console.log} />
 		</header>
 		<main css={mainCss}>
 			<div css={sidebarCss}>
