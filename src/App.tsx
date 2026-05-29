@@ -1,9 +1,7 @@
 import { css } from '@emotion/react';
 
 import CardLoading from './CardLoading.tsx';
-import { demoMenuItems, NavMenu } from './nav-menu';
 import SearchBox from './SearchBox';
-import SplitPanel from './SplitPanel.tsx';
 
 const Title = () => (
 	<h1 css={{ margin: '1rem 0' }}>
@@ -56,7 +54,6 @@ const App = () => (
 	<>
 		<header css={headerCss}>
 			<Title />
-			<NavMenu menuItems={demoMenuItems} />
 			<SearchBox label="Search site" onSubmit={console.log} />
 		</header>
 		<main css={mainCss}>
@@ -78,22 +75,7 @@ const App = () => (
 				</div>
 			</div>
 			<div css={contentPanelCss}>
-				<SplitPanel
-					one={
-						<div css={{ backgroundColor: '#141414', flex: 1, overflow: 'auto' }}>
-							one
-							<br /> one
-							<br /> one
-						</div>
-					}
-					two={
-						<div css={{ backgroundColor: '#141414', flex: 1, overflow: 'auto' }}>
-							two
-							<br /> two
-							<br /> two
-						</div>
-					}
-				/>
+				<p>Move along, nothing to see yet ...</p>
 			</div>
 		</main>
 	</>
