@@ -1,17 +1,17 @@
-import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
-import CardLoading from './CardLoading.tsx';
+import ContentLoading from './ContentLoading.tsx';
 import SearchBox from './SearchBox';
 
 const Title = () => (
-	<h1 css={{ margin: '1rem 0' }}>
+	<h1 style={{ margin: '1rem 0' }}>
 		<a href="/" css={{ textDecoration: 'none', color: 'inherit' }}>
 			recipease.com
 		</a>
 	</h1>
 );
 
-const headerCss = css({
+const Header = styled.header({
 	display: 'flex',
 	alignItems: 'center',
 	gap: '1rem',
@@ -23,7 +23,7 @@ const headerCss = css({
 	},
 });
 
-const mainCss = css({
+const Main = styled.main({
 	flex: 1,
 	display: 'flex',
 	alignItems: 'stretch',
@@ -32,7 +32,7 @@ const mainCss = css({
 	overflow: 'hidden',
 });
 
-const sidebarCss = css({
+const SidePanel = styled.div({
 	display: 'flex',
 	flexDirection: 'column',
 	gap: '0.5rem',
@@ -41,43 +41,43 @@ const sidebarCss = css({
 	overflow: 'auto',
 });
 
-const cardCss = css({
+const Card = styled.div({
 	border: '1px solid var(--backgroundColorSecondary)',
 	borderRadius: '0.25rem',
 });
 
-const contentPanelCss = css({
+const ContentPanel = styled.div({
 	width: '70%',
 });
 
 const App = () => (
 	<>
-		<header css={headerCss}>
+		<Header>
 			<Title />
 			<SearchBox label="Search site" onSubmit={console.log} />
-		</header>
-		<main css={mainCss}>
-			<div css={sidebarCss}>
-				<div css={cardCss}>
-					<CardLoading />
-				</div>
-				<div css={cardCss}>
-					<CardLoading />
-				</div>
-				<div css={cardCss}>
-					<CardLoading />
-				</div>
-				<div css={cardCss}>
-					<CardLoading />
-				</div>
-				<div css={cardCss}>
-					<CardLoading />
-				</div>
-			</div>
-			<div css={contentPanelCss}>
+		</Header>
+		<Main>
+			<SidePanel>
+				<Card>
+					<ContentLoading />
+				</Card>
+				<Card>
+					<ContentLoading />
+				</Card>
+				<Card>
+					<ContentLoading />
+				</Card>
+				<Card>
+					<ContentLoading />
+				</Card>
+				<Card>
+					<ContentLoading />
+				</Card>
+			</SidePanel>
+			<ContentPanel>
 				<p>Move along, nothing to see yet ...</p>
-			</div>
-		</main>
+			</ContentPanel>
+		</Main>
 	</>
 );
 
